@@ -1,0 +1,23 @@
+{
+  "name": "pptr-stream-yt",
+  "version": "1.0.0",
+  "description": "puppeteer stream youtube",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zizwar/pptr-stream-yt.git"
+  },
+  "author": "brahim bidi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zizwar/pptr-stream-yt/issues"
+  },
+  "homepage": "https://github.com/Zizwar/pptr-stream-yt#readme",
+  "dependencies": {
+    "puppeteer": "^19.5.2",
+    "puppeteer-stream": "^2.1.4"
+  }
+}
