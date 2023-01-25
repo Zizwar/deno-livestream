@@ -3,12 +3,11 @@ puppeteer stream youtube
 
 1. install
 
-nodejs 18:
+nodejs 16:
 ```
-curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh
-sudo bash nodesource_setup.sh
+curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
 sudo apt update
-sudo apt install nodejs
+sudo apt -y install nodejs
 ```
 chromium:
 ```
