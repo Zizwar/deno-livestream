@@ -8,7 +8,7 @@ const delay = (milliseconds) =>
 //
 
 const TIME_AWAIT_NAVIGATE = 12; //second
-const TIME_AWAIT_RECORD = 190;
+const TIME_AWAIT_RECORD = 60;
 //
 (async () => {
   const browser = await puppeteer.launch({
@@ -44,7 +44,7 @@ const TIME_AWAIT_RECORD = 190;
   //page.waitForNavigation(); // The promise resolves after navigation has finished
   await delay(TIME_AWAIT_NAVIGATE * 1000);
 
-  page.click("#onetrust-accept-btn-handler"); // Clicking the link will indirectly cause a navigation
+  //page.click("#onetrust-accept-btn-handler"); // Clicking the link will indirectly cause a navigation
 
   //await page.click("#onetrust-accept-btn-handler");
   log("accept cookies");
