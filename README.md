@@ -3,15 +3,18 @@ puppeteer stream youtube
 
 1. install
 
-node:
-
-curl -s https://deb.nodesource.com/setup_16.x | sudo bash
-sudo apt-get install -y nodejs
-
-
+nodejs 18:
+```
+curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh
+sudo bash nodesource_setup.sh
+sudo apt update
+sudo apt install nodejs
+```
+chromium:
+```
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-
 sudo apt update && sudo apt install ./google-chrome-stable_current_amd64.deb
+```
 
 
 ////if probelm Missing Xserveer or $DISPLAY
