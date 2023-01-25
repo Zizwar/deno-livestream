@@ -7,7 +7,7 @@ const delay = (milliseconds) =>
   new Promise((resolve) => setTimeout(resolve, milliseconds));
 //
 
-const TIME_AWAIT_NAVIGATE = 45; //second
+const TIME_AWAIT_NAVIGATE = 60; //second
 const TIME_AWAIT_RECORD = 160;
 //
 (async () => {
@@ -44,23 +44,23 @@ const TIME_AWAIT_RECORD = 160;
   //page.waitForNavigation(); // The promise resolves after navigation has finished
   await delay(TIME_AWAIT_NAVIGATE * 1000);
 
-  //page.click("#onetrust-accept-btn-handler"); // Clicking the link will indirectly cause a navigation
+ 
 
   //await page.click("#onetrust-accept-btn-handler");
   log("accept cookies");
 
   //await page.waitFor(100);
   await delay(2000);
-  await page.click(".css-4rbxuz");
+//  await page.click(".css-4rbxuz");
   //await page.waitForTimeout(5000);
   //await page.waitForTimeout(1000);
-  await page.click(".css-1sh2brw");
+  //await page.click(".css-1sh2brw");
   log("skip help");
 
   //await page.waitForTimeout(1000);
-  await page.click(".css-1pj8e72");
+  //await page.click(".css-1pj8e72");
   //await page.waitForTimeout(1000);
-  await page.click(".css-1pj8e72");
+  //await page.click(".css-1pj8e72");
   log("chart 1s");
   delay(200);
   await page.evaluate(() => (document.body.style.zoom = 1.5));
