@@ -8,6 +8,9 @@ nodejs 16:
 curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
 sudo apt update
 sudo apt -y install nodejs
+
+#if Errors were encountered while processing
+ sudo dpkg -i --force-overwrite /var/cache/apt/archives/nodejs_16.19.0-deb-1nodesource1_amd64.deb
 ```
 chromium:
 ```
