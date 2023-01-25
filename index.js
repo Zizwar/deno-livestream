@@ -7,12 +7,12 @@ const delay = (milliseconds) =>
   new Promise((resolve) => setTimeout(resolve, milliseconds));
 //
 
-const TIME_AWAIT_NAVIGATE = 12; //second
-const TIME_AWAIT_RECORD = 60;
+const TIME_AWAIT_NAVIGATE = 45; //second
+const TIME_AWAIT_RECORD = 160;
 //
 (async () => {
   const browser = await puppeteer.launch({
-     headless: true,
+    // headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
     defaultViewport: {
       width: 1920,
