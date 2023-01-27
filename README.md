@@ -12,6 +12,12 @@ sudo apt -y install nodejs
 #if Errors were encountered while processing
  sudo dpkg -i --force-overwrite /var/cache/apt/archives/nodejs_16.19.0-deb-1nodesource1_amd64.deb
 ```
+////if Error Could not find Chromium
+
+sudo npm install puppeteer --unsafe-perm=true --allow-root
+
+apt-get -y install ffmpeg
+
 chromium:
 ```
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
