@@ -1,65 +1,90 @@
+const { spawn } = require("child_process");
 const puppeteer = require("puppeteer");
-const { stream } = require("./stream.js");
+const ffmpegArgs = ({ fps, resolution, preset, rate, threads }) => [
+  // IN
+  "-f",
+  "image2pipe",
+  "-use_wallclock_as_timestamps",
+  "1",
+  "-i",
+  "-",
+  "-f",
+  "lavfi",
+  "-i",
+  "anullsrc",
+  // OUT
+  "-deinterlace",
+  "-s",
+  resolution,
+  "-vsync",
+  "cfr",
+  "-r",
+  fps,
+  "-g",
+  fps * 2,
+  "-vcodec",
+  "libx264",
+  "-x264opts",
+  "keyint=" + fps * 2 + ":no-scenecut",
+  "-preset",
+  preset,
+  "-b:v",
+  rate,
+  "-minrate",
+  rate,
+  "-maxrate",
+  rate,
+  "-bufsize",
+  rate,
+  "-pix_fmt",
+  "yuv420p",
+  "-threads",
+  threads,
+  "-f",
+  "lavfi",
+  "-acodec",
+  "libmp3lame",
+  "-ar",
+  "44100",
+  "-b:a",
+  "128k",
+  "-f",
+  "flv",
+];
+module.exports.stream = async function (options) {
+  const browser = options.browser || (await puppeteer.launch());
+  const page = options.page || (await browser.newPage());
 
-const { log } = console;
-const delay = (milliseconds) =>
-  new Promise((resolve) => setTimeout(resolve, milliseconds));
+  await options.prepare(browser, page);
 
-puppeteer
-  .launch({
-    headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    defaultViewport: {
-      width: 1920,
-      height: 1080,
-    },
-    executablePath: "/usr/bin/google-chrome-stable",
-  })
-  .then(async (browser) => {
+  var ffmpegPath = options.ffmpeg || "ffmpeg";
+  var fps = options.fps || 30;
+  var resolution = options.resolution || "1920x1080";
+  var preset = options.preset || "medium";
+  var rate = options.rate || "2500k";
+  var threads = options.threads || "2";
 
-//
+  var outUrl = options.output || "rtmp://a.rtmp.youtube.com/live2/";
 
-const TIME_AWAIT_NAVIGATE = 20; //second
-const TIME_AWAIT_RECORD = 50;
-    const page = await browser.newPage();
+  const args = ffmpegArgs({ fps, resolution, preset, rate, threads });
 
-    await page.goto("https://www.binance.com/en/trade/BTC_USDT?layout=pro", {
-      waitUntil: "networkidle2",
-    });
+  var fullUrl = outUrl + options.key;
+  args.push(fullUrl);
 
+  const ffmpeg = spawn(ffmpegPath, args);
 
-    await delay(TIME_AWAIT_NAVIGATE * 1000);
+  let screenshot = null;
 
-  page.click("#onetrust-accept-btn-handler"); // Clicking the link will indirectly cause a navigation
+  if (options.pipeOutput) {
+    ffmpeg.stdout.pipe(process.stdout);
+    ffmpeg.stderr.pipe(process.stderr);
+  }
 
-  //await page.click("#onetrust-accept-btn-handler");
-  log("accept cookies");
+  while (true) {
+    await options.render(browser, page);
 
-  //await page.waitFor(100);
-  await delay(2000);
-  await page.click(".css-4rbxuz");
-  //await page.waitForTimeout(5000);
-  //await page.waitForTimeout(1000);
-  await page.click(".css-1sh2brw");
-  log("skip help");
+    screenshot = await page.screenshot({ type: "jpeg" });
 
-  //await page.waitForTimeout(1000);
-  await page.click(".css-1pj8e72");
-  //await page.waitForTimeout(1000);
-  await page.click(".css-1pj8e72");
-  log("chart 1s");
-  delay(200);
-  await page.evaluate(() => (document.body.style.zoom = 1.5));
-  log("zoom chart");
-console.log("goto url ");
-    await stream({
-      page: page,
-      key: "",
-      fps: 30,
-     prepare: function (browser, page) {},
-     render: function (browser, page, frame) {},
-    });
-console.log("stream")
-  //  await browser.close();
-
-  });
+    await ffmpeg.stdin.write(screenshot);
+  }
+};
