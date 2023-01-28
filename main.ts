@@ -53,7 +53,7 @@ puppeteer
     console.log("goto url ");
     await stream({
       page: page,
-      key: "9qye-gcgd-6vrh-9ceg-60hx",
+      key: "",
       fps: 30,
       prepare: function (browser, page) {},
       render: function (browser, page, frame) {},

@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/Zizwar/pptr-stream-yt#readme",
   "dependencies": {
-    "puppeteer": "^19.5.2",
+    "puppeteer": "^19.6.2",
     "puppeteer-screen-recorder": "^2.1.2",
     "puppeteer-stream": "^2.1.4"
   }
