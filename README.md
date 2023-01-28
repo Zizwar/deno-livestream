@@ -11,11 +11,15 @@ git clone https://github.com/Zizwar/deno-livestream.git
 ## install
 # Deno Land
 1- https://deno.land/#installation
-2- run
+
+2- https://github.com/lucacasonato/deno-puppeteer
+
+3- run
+
 ```sh
-$ deno run --allow-net --allow-env --allow-read main.js
+$ deno run --allow-net --allow-env --allow-read -A --unstable main.ts
 ```
- - in docker 
+ - in docker (coming)
  ```sh
 $ docker build -t app . && docker run -it --init -p 1993:1993 app
 ```
@@ -35,13 +39,13 @@ sudo apt -y install nodejs
 
 sudo npm install puppeteer --unsafe-perm=true --allow-root
 
-apt-get -y install ffmpeg
+sudo apt -y install ffmpeg
 
 chromium:
 ```
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo apt update 
-sudo apt install ./google-chrome-stable_current_amd64.deb
+sudo apt -y install ./google-chrome-stable_current_amd64.deb
 ```
 ////if probelm Missing Xserveer or $DISPLAY
 
