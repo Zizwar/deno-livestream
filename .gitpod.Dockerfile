@@ -5,3 +5,7 @@ RUN /home/gitpod/.deno/bin/deno completions bash > /home/gitpod/.bashrc.d/90-den
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN sudo apt update 
 RUN sudo apt install ./google-chrome-stable_current_amd64.deb
+RUN sudo apt -y install ffmpeg
+RUN PUPPETEER_PRODUCT=chrome deno run -A --unstable https://deno.land/x/puppeteer@16.2.0/install.ts
+#nodejs
+#RUN sudo npm install puppeteer --unsafe-perm=true --allow-root

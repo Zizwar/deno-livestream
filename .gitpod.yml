@@ -2,8 +2,8 @@ image:
   file: .gitpod.Dockerfile
 tasks:
   - init: ''
-    command: 'echo "Start Project deno-livestream: deno run --allow-net --allow-env --allow-read main.js"'
+    command: 'echo "Start Project deno-livestream: deno run --allow-net --allow-env --allow-read -A --unstable main.ts"'
 
 vscode:
   extensions:
-    - denoland.vscode-deno@2.3.1:EQc/TzIQd+H8BcYsPXTo/A==
+    - denoland.vscode-deno
