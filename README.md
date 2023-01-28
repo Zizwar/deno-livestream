@@ -40,10 +40,9 @@ apt-get -y install ffmpeg
 chromium:
 ```
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt update && sudo apt install ./google-chrome-stable_current_amd64.deb
+sudo apt update 
+sudo apt install ./google-chrome-stable_current_amd64.deb
 ```
-
-
 ////if probelm Missing Xserveer or $DISPLAY
 
 export DISPLAY=:1 && /usr/bin/google-chrome-stable
