@@ -17,7 +17,7 @@ git clone https://github.com/Zizwar/deno-livestream.git
 3- run
 
 ```sh
-$ deno run --allow-net --allow-env --allow-read -A --unstable main.ts
+$ deno run --allow-net --allow-env --allow-read -A --unstable --allow-run main.ts
 ```
  - in docker (coming)
  ```sh

@@ -23,10 +23,10 @@ puppeteer
     const TIME_AWAIT_RECORD = 50;
     const page = await browser.newPage();
 
-    await page.goto("https://www.binance.com/en/trade/BTC_USDT?layout=pro", {
-      waitUntil: "networkidle2",
+    await page.goto("https://op1js.deno.dev", {
+      waitUntil: "domcontentloaded"//"networkidle2",
     });
-
+/*
     await delay(TIME_AWAIT_NAVIGATE * 1000);
 
     page.click("#onetrust-accept-btn-handler"); // Clicking the link will indirectly cause a navigation
@@ -48,6 +48,7 @@ puppeteer
     await page.click(".css-1pj8e72");
     log("chart 1s");
     delay(200);
+    //*/
     await page.evaluate(() => (document.body.style.zoom = 1.5));
     log("zoom chart");
     console.log("goto url ");

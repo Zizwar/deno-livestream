@@ -1,5 +1,6 @@
 import puppeteer from "https://deno.land/x/puppeteer@16.2.0/mod.ts";
-const { log, error, info } = console;
+const {  error, info } = console;
+const log =()=>{}
 const ffmpegArgs = ({ fps, resolution, preset, rate, threads }) => [
   // IN
   "-f",
@@ -70,7 +71,7 @@ export default async (options) => {
 
   const fullUrl = outUrl + options.key;
   args.push(fullUrl);
-  log("start ffmpeg");
+  console.log("start ffmpeg");
   const ffmpeg = await Deno.run({
     cmd: [ffmpegPath, ...args],
     stderr: "piped",
@@ -107,12 +108,12 @@ export default async (options) => {
       console.error("err=");
     }
     */
-/*
-    const stdin = ffmpeg.stdin.getWriter();
+
+   // const stdin = ffmpeg.stdin.getWriter();
     
-    await stdin.write(screenshot);
-    await stdin.close();
-    */
+   // await stdin.write(screenshot);
+    //await stdin.close();
+    
     //const s = await ffmpeg.status;
     log("stdin.close");
     
