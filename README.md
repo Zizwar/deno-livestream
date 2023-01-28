@@ -1,9 +1,25 @@
-# pptr-stream-yt
-puppeteer stream youtube
 
-1. install
+# deno-livestream
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/Zizwar/deno-trad-bot)
 
-nodejs 16:
+
+clone: 
+```sh 
+git clone https://github.com/Zizwar/deno-livestream.git 
+```
+## install
+# Deno Land
+1- https://deno.land/#installation
+2- run
+```sh
+$ deno run --allow-net --allow-env --allow-read main.js
+```
+ - in docker 
+ ```sh
+$ docker build -t app . && docker run -it --init -p 1993:1993 app
+```
+
+# Nodejs 16
 ```
 curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
 sudo apt update
@@ -12,6 +28,8 @@ sudo apt -y install nodejs
 #if Errors were encountered while processing
  sudo dpkg -i --force-overwrite /var/cache/apt/archives/nodejs_16.19.0-deb-1nodesource1_amd64.deb
 ```
+
+
 ////if Error Could not find Chromium
 
 sudo npm install puppeteer --unsafe-perm=true --allow-root
