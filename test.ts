@@ -11,8 +11,8 @@ puppeteer
     headless: true,
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
     defaultViewport: {
-      width: 1920,
-      height: 1080,
+      width: 1280,
+      height: 720,
     },
     executablePath: "/usr/bin/google-chrome-stable",
   })
@@ -49,13 +49,13 @@ puppeteer
     log("chart 1s");
     delay(200);
     //*/
-    await page.evaluate(() => (document.body.style.zoom = 1.5));
+    //await page.evaluate(() => (document.body.style.zoom = 1.5));
     log("zoom chart");
     console.log("goto url ");
     await stream({
-      page: page,
+      page,
       key: "",
-      fps: 30,
+      fps: 14,
       prepare: function (browser, page) {},
       render: function (browser, page, frame) {},
     });

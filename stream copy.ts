@@ -1,33 +1,76 @@
 import puppeteer from "https://deno.land/x/puppeteer@16.2.0/mod.ts";
-const { log: _log, error, info } = console;
-const log = (v) => ""; //_log(v)
-const ffmpegArgs = ({ fps, resolution, preset, rate, threads, fullUrl }) =>
-  `-y -c:v mjpeg -f image2pipe -use_wallclock_as_timestamps 1 -i - -f lavfi -i anullsrc -deinterlace -s ${resolution} -vsync cfr -r ${fps} -g ${
-    fps * 2
-  } -vcodec libx264 -x264opts keyint=${
-    fps * 2
-  }:no-scenecut -b:v ${rate} -minrate ${rate} -maxrate ${rate} -bufsize ${rate} -pix_fmt yuv420p -threads ${threads} -f lavfi -acodec libmp3lame -ar 44100 -b:a 128k -f flv ${fullUrl}`.split(
-    " "
-  );
-
+const {  error, info } = console;
+const log =()=>{}
+const ffmpegArgs = ({ fps, resolution, preset, rate, threads }) => [
+  // IN 
+  "-f",
+  "image2pipe",
+  "-use_wallclock_as_timestamps",
+  "1",
+  "-i",
+  "-",
+  "-f",
+  "lavfi",
+  "-i",
+  "anullsrc",
+  // OUT
+  "-deinterlace",
+  "-s",
+  resolution,
+  "-vsync",
+  "cfr",
+  "-r",
+  fps,
+  "-g",
+  fps * 2,
+  "-vcodec",
+  "libx264",
+  "-x264opts",
+  "keyint=" + fps * 2 + ":no-scenecut",
+  "-preset",
+  preset,
+  "-b:v",
+  rate,
+  "-minrate",
+  rate,
+  "-maxrate",
+  rate,
+  "-bufsize",
+  rate,
+  "-pix_fmt",
+  "yuv420p",
+  "-threads",
+  threads,
+  "-f",
+  "lavfi",
+  "-acodec",
+  "libmp3lame",
+  "-ar",
+  "44100",
+  "-b:a",
+  "128k",
+  "-f",
+  "flv",
+];
 export default async (options) => {
-  const browser = options.browser; //|| (await puppeteer.launch());
-  const page = options.page; //|| (await browser.newPage());
+  const browser = options.browser || (await puppeteer.launch());
+  const page = options.page || (await browser.newPage());
 
   await options.prepare(browser, page);
 
   const ffmpegPath = options.ffmpeg || "ffmpeg";
-  const fps = options.fps || 14;
-  const resolution = options.resolution || "1280x720";
+  const fps = options.fps || 30;
+  const resolution = options.resolution || "1920x1080";
   const preset = options.preset || "medium";
   const rate = options.rate || "2500k";
   const threads = options.threads || "2";
 
   const outUrl = options.output || "rtmp://a.rtmp.youtube.com/live2/";
-  const fullUrl = outUrl + options.key;
-  const args = ffmpegArgs({ fps, resolution, preset, rate, threads, fullUrl });
 
-  //args.push(fullUrl);
+  const args = ffmpegArgs({ fps, resolution, preset, rate, threads });
+
+  const fullUrl = outUrl + options.key;
+  args.push(fullUrl);
   console.log("start ffmpeg");
   const ffmpeg = await Deno.run({
     cmd: [ffmpegPath, ...args],
@@ -52,19 +95,8 @@ export default async (options) => {
   while (true) {
     await options.render(browser, page);
     log("render screan ");
-    screenshot = await page.screenshot({
-      type: "jpeg",
-      quality: 50,
-      fullPage: false,
-      clip: {
-        x:0,
-        y:0,
-        width: 1280,
-        height: 720,
-      },
-    });
-
-    //screenshot = await page.screenshot({ omitBackground: true });
+    screenshot = await page.screenshot({ type: "jpeg" });
+    log("creat screan ");
     /*
     if (code === 0) {
       // const rawOutput = await p.output();
@@ -77,14 +109,14 @@ export default async (options) => {
     }
     */
 
-    // const stdin = ffmpeg.stdin.getWriter();
-
-    // await stdin.write(screenshot);
+   // const stdin = ffmpeg.stdin.getWriter();
+    
+   // await stdin.write(screenshot);
     //await stdin.close();
-
+    
     //const s = await ffmpeg.status;
     log("stdin.close");
-
+    
     //console.info(ffmpeg.stdin);
     /*
     let r = readerFromStreamReader(screenshot);
@@ -93,15 +125,7 @@ export default async (options) => {
     await ffmpeg.status();
    
 */
-    //await write(ffmpeg.stdin, screenshot);
     await ffmpeg.stdin.write(screenshot);
     log("write.screen");
   }
 };
-const write = (stream, buffer) =>
-  new Promise<void>((resolve, reject) => {
-    stream.write(buffer, (error) => {
-      if (error) reject(error);
-      else resolve();
-    });
-  });

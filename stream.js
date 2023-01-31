@@ -85,6 +85,8 @@ module.exports.stream = async function (options) {
 
     screenshot = await page.screenshot({ type: "jpeg" });
 
-    await ffmpeg.stdin.write(screenshot);
+ //   await write(ffmpeg.stdin, screenshot);
+   await ffmpeg.stdin.write(screenshot);
   }
 };
+
