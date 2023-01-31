@@ -52,17 +52,7 @@ export default async (options) => {
   while (true) {
     await options.render(browser, page);
     log("render screan ");
-    screenshot = await page.screenshot({
-      type: "jpeg",
-      quality: 50,
-      fullPage: false,
-      clip: {
-        x:0,
-        y:0,
-        width: 1280,
-        height: 720,
-      },
-    });
+    screenshot = await page.screenshot(options.screenshot);
 
     //screenshot = await page.screenshot({ omitBackground: true });
     /*
@@ -98,10 +88,4 @@ export default async (options) => {
     log("write.screen");
   }
 };
-const write = (stream, buffer) =>
-  new Promise<void>((resolve, reject) => {
-    stream.write(buffer, (error) => {
-      if (error) reject(error);
-      else resolve();
-    });
-  });
+
