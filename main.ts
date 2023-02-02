@@ -2,6 +2,8 @@ import puppeteer from "https://deno.land/x/puppeteer@16.2.0/mod.ts";
 
 import stream from "./stream.ts";
 
+import {API_STREAM} from "./config.ts";
+
 const { log } = console;
 const delay = (milliseconds = 1000) =>
   new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -13,22 +15,22 @@ const querySelectors = {
   orderBook: ".css-1l49xsz",
   coockie: "#onetrust-accept-btn-handler",
 };
-
+const [width, height] = [1280,720]//[1920, 1080]; //
 
 puppeteer
   .launch({
     headless: true,
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
     defaultViewport: {
-      width: 1280,
-      height: 720,
+      width:1920,
+      height:1080,
     },
     executablePath: "/usr/bin/google-chrome-stable",
   })
   .then(async (browser) => {
     //
 
-    const TIME_AWAIT_NAVIGATE = 55; //second
+    const TIME_AWAIT_NAVIGATE = 45; //second
 
     const page = await browser.newPage();
 
@@ -37,7 +39,7 @@ puppeteer
     });
 
     await delay(TIME_AWAIT_NAVIGATE * 1000);
-    ///*
+   // /*
     await page.click("#onetrust-accept-btn-handler");
     log("accept cookies");
 
@@ -56,28 +58,27 @@ puppeteer
     delay(200);
     //*/
     await page.evaluate(async () => {
-
-      //  document.body.style.zoom = 0.8;
-  
+      //  document.body.style.zoom = 1.35;
+     // window.alert(23)
     });
     log("zoom chart");
     console.log("goto stream ");
     await stream({
       page,
-      key: "",
-      //resolution:"1920x1080",
+      key:API_STREAM ,
+      resolution: `${width}x${height}`,
       fps: 8,
       prepare: function (browser, page) {},
       render: function (browser, page, frame) {},
       screenshot: {
         type: "jpeg",
-        quality: 45,
+        quality: 47,
         fullPage: false,
         clip: {
           x: 0,
-          y: 100,
-          width: 1280,
-          height: 720,
+          y: 10,
+          width,
+          height,
         },
       },
     });

@@ -1,8 +1,15 @@
 import puppeteer from "https://deno.land/x/puppeteer@16.2.0/mod.ts";
 const { log: _log, error, info } = console;
 const log = (v) => ""; //_log(v)
-const ffmpegArgs = ({ fps, resolution, preset, rate, threads, fullUrl }) =>
-  `-y -c:v mjpeg -f image2pipe -use_wallclock_as_timestamps 1 -i - -f lavfi -i anullsrc -deinterlace -s ${resolution} -vsync cfr -r ${fps} -g ${
+const ffmpegArgs = ({
+  fps,
+  resolution,
+  preset,
+  rate,
+  threads,
+  fullUrl = "rtmp://localhost/live/strea",
+}) =>
+  `-f image2pipe -use_wallclock_as_timestamps 1 -i - -f lavfi -i anullsrc -deinterlace -s ${resolution} -r ${fps} -g ${
     fps * 2
   } -vcodec libx264 -x264opts keyint=${
     fps * 2
@@ -88,4 +95,3 @@ export default async (options) => {
     log("write.screen");
   }
 };
-
