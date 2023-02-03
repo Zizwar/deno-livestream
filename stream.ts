@@ -48,21 +48,21 @@ export default async (options) => {
   const code = 0;
   log({ code });
 
-  let screenshot = null;
-  /*
-  if (options.pipeOutput) {
-    ffmpeg.stdout.pipe(process.stdout);
-    ffmpeg.stderr.pipe(process.stderr);
-  }
-  */
-
+  //setInterval(async (_) => {
   while (true) {
+    await options.render(browser, page);
+    const screenshot = await page.screenshot({ type: "jpeg" });
+    await ffmpeg.stdin.write(screenshot);
+  }
+ // , 5);
+
+  /* 
     await options.render(browser, page);
     log("render screan ");
     screenshot = await page.screenshot(options.screenshot);
-
-    //screenshot = await page.screenshot({ omitBackground: true });
-    /*
+*/
+  //screenshot = await page.screenshot({ omitBackground: true });
+  /*
     if (code === 0) {
       // const rawOutput = await p.output();
       await Deno.stdout.write(screenshot);
@@ -74,24 +74,25 @@ export default async (options) => {
     }
     */
 
-    // const stdin = ffmpeg.stdin.getWriter();
+  // const stdin = ffmpeg.stdin.getWriter();
 
-    // await stdin.write(screenshot);
-    //await stdin.close();
+  // await stdin.write(screenshot);
+  //await stdin.close();
 
-    //const s = await ffmpeg.status;
-    log("stdin.close");
+  //const s = await ffmpeg.status;
+  log("stdin.close");
 
-    //console.info(ffmpeg.stdin);
-    /*
+  //console.info(ffmpeg.stdin);
+  /*
     let r = readerFromStreamReader(screenshot);
     await Deno.copy(r, ffmpeg.stdin);
     ffmpeg.stdin.close();
     await ffmpeg.status();
    
 */
-    //await write(ffmpeg.stdin, screenshot);
-    await ffmpeg.stdin.write(screenshot);
-    log("write.screen");
-  }
+  //await write(ffmpeg.stdin, screenshot);
+  // await ffmpeg.stdin.write(screenshot);
+
+  //  log("write.screen");
+  // }
 };

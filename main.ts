@@ -73,7 +73,7 @@ puppeteer
       render: function (browser, page, frame) {},
       screenshot: {
         type: "jpeg",
-        quality: 74,
+      //  quality: 74,
         fullPage: false,
         clip: {
           x: 0,

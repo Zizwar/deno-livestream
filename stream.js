@@ -80,13 +80,12 @@ module.exports.stream = async function (options) {
     ffmpeg.stderr.pipe(process.stderr);
   }
 
-  while (true) {
+  //  while (true) {
+  setInterval(async (_) => {
     await options.render(browser, page);
-
     screenshot = await page.screenshot({ type: "jpeg" });
+    await ffmpeg.stdin.write(screenshot);
+  }, 1000);
 
- //   await write(ffmpeg.stdin, screenshot);
-   await ffmpeg.stdin.write(screenshot);
-  }
+  //}
 };
-
