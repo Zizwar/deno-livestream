@@ -3,7 +3,10 @@
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/Zizwar/deno-livestream
 )
 
-
+instial:
+```sh 
+sudo apt update && sudo apt install curl wget git -y
+```
 clone: 
 ```sh 
 git clone https://github.com/Zizwar/deno-livestream.git 
@@ -17,11 +20,11 @@ git clone https://github.com/Zizwar/deno-livestream.git
 3- run
 
 ```sh
-$ deno run --allow-net --allow-env --allow-read -A --unstable --allow-run main.ts
+deno run --allow-net --allow-env --allow-read -A --unstable --allow-run main.ts
 ```
  - in docker (coming)
  ```sh
-$ docker build -t app . && docker run -it --init -p 1993:1993 app
+docker build -t app . && docker run -it --init -p 1993:1993 app
 ```
 
 # Nodejs 16
