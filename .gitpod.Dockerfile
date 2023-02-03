@@ -9,3 +9,4 @@ RUN sudo apt -y install ffmpeg
 RUN PUPPETEER_PRODUCT=chrome deno run -A --unstable https://deno.land/x/puppeteer@16.2.0/install.ts
 #nodejs
 #RUN sudo npm install puppeteer --unsafe-perm=true --allow-root
+#RUN npx node-media-server

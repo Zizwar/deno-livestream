@@ -22,8 +22,8 @@ puppeteer
     headless: true,
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
     defaultViewport: {
-      width:1920,
-      height:1080,
+      width,
+      height,
     },
     executablePath: "/usr/bin/google-chrome-stable",
   })
@@ -65,14 +65,15 @@ puppeteer
     console.log("goto stream ");
     await stream({
       page,
-      key:API_STREAM ,
+      output:"rtmp://localhost/live/stream",
+      key:"",//API_STREAM ,
       resolution: `${width}x${height}`,
-      fps: 8,
+      fps: 6,
       prepare: function (browser, page) {},
       render: function (browser, page, frame) {},
       screenshot: {
         type: "jpeg",
-        quality: 47,
+        quality: 74,
         fullPage: false,
         clip: {
           x: 0,

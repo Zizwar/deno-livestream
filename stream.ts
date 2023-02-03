@@ -7,7 +7,7 @@ const ffmpegArgs = ({
   preset,
   rate,
   threads,
-  fullUrl = "rtmp://localhost/live/strea",
+  fullUrl = "rtmp://localhost/live/stream",
 }) =>
   `-f image2pipe -use_wallclock_as_timestamps 1 -i - -f lavfi -i anullsrc -deinterlace -s ${resolution} -r ${fps} -g ${
     fps * 2
