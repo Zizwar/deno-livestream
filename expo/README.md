@@ -1,4 +1,4 @@
-# smsino
+# useStream
 useStream expo react native
 
 install expo 
